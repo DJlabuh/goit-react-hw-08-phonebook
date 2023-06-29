@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { Container, SectionComponents, Title, WarningText } from './App.styled';
 
+import { Header } from 'components/Header';
 import { ContactForm } from 'components/ContactForm';
 import { Filter } from 'components/Filter';
 import { ContactList } from 'components/ContactList';
@@ -30,6 +31,7 @@ export const App = () => {
 
   return (
     <Container>
+      <Header />
       <SectionComponents>
         <Title>Phonebook</Title>
         <ContactForm />
