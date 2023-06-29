@@ -1,53 +1,29 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectFilter, selectContacts, selectIsLoading } from 'redux/selectors';
+import { Suspense, lazy } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
-import { fetchContacts } from 'redux/operations';
+import Layout from '../Layout/Layout';
+import { Loader } from 'components/Loader';
 
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import { PrivateRoute } from 'components/PrivateRoute';
+// import { RestrictedRoute } from 'components/RestrictedRoute';
 
-import { Container, SectionComponents, Title, WarningText } from './App.styled';
-
-import { Header } from 'components/Header';
-import { ContactForm } from 'components/ContactForm';
-import { Filter } from 'components/Filter';
-import { ContactList } from 'components/ContactList';
-import { Loader } from 'components/Loader/Loader';
-
-import { getVisibleContacts } from 'helpers/contactUtils';
+const Home = lazy(() => import('pages/Home'));
+const Contacts = lazy(() => import('pages/Contacts'));
+const Register = lazy(() => import('pages/Register'));
+const LogIn = lazy(() => import('pages/LogIn'));
 
 export const App = () => {
-  const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
-  const filter = useSelector(selectFilter);
-  const isLoading = useSelector(selectIsLoading);
-
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-
-  const visibleContacts = getVisibleContacts(contacts, filter);
-
   return (
-    <Container>
-      <Header />
-      <SectionComponents>
-        <Title>Phonebook</Title>
-        <ContactForm />
-      </SectionComponents>
-      <SectionComponents>
-        <Title>Contacts</Title>
-        <Filter />
-        {isLoading ? (
-          <Loader />
-        ) : visibleContacts.length ? (
-          <ContactList />
-        ) : (
-          <WarningText>Contact not found!</WarningText>
-        )}
-      </SectionComponents>
-      <ToastContainer />
-    </Container>
+    <Suspense fallback={<Loader />}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/contacts" element={<Contacts />} />
+          {/* <Route path="*" element={<Error />} /> */}
+        </Route>
+      </Routes>
+    </Suspense>
   );
 };

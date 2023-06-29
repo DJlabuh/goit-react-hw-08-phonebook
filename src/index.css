@@ -1,5 +1,4 @@
-@import-normalize;
-/* bring in normalize.css styles */
+/* @import-normalize; */
 
 body {
   margin: 0;
@@ -28,4 +27,13 @@ p {
 
 button {
   cursor: pointer;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section {
+  padding: 20px;
 }

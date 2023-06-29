@@ -1,22 +1,27 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-export const Nav = styled.nav`
-  padding: 10px;
-`;
-
-export const List = styled.ul`
+export const AuthNavContainer = styled.ul`
   display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
-export const ListItem = styled.li`
-  margin-right: 25px;
+export const NavItem = styled.li`
+  margin-right: 10px;
 
   &:last-child {
     margin-right: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-right: 0;
+    margin-bottom: 10px;
   }
 `;
 
@@ -26,9 +31,6 @@ export const StyledNavLink = styled(NavLink)`
   font-weight: bold;
 
   &.active {
-    color: #a03333;
-  }
-  &:hover {
     color: #a03333;
   }
 `;

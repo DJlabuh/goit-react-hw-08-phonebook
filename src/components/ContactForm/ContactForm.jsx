@@ -59,7 +59,7 @@ export const ContactForm = () => {
         />
       </FormLabel>
       <FormLabel>
-        Phone
+        Telephone
         <FormInput
           type="tel"
           name="phone"

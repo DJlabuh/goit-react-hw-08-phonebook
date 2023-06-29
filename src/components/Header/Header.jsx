@@ -1,12 +1,17 @@
-import React from 'react';
 import { Navigation } from 'components/Navigation';
+import { UserMenu } from 'components/UserMenu';
+import { AuthNav } from 'components/AuthNav';
 
 import { HeaderContainer } from './Header.styled';
 
 export const Header = () => {
   return (
-    <HeaderContainer>
-      <Navigation />
-    </HeaderContainer>
+    <div className="container">
+      <HeaderContainer>
+        <Navigation />
+        <UserMenu />
+        <AuthNav />
+      </HeaderContainer>
+    </div>
   );
 };

@@ -3,6 +3,8 @@ import styled from 'styled-components';
 export const FormContact = styled.form`
   display: flex;
   flex-direction: column;
+  max-width: 300px;
+  margin-top: 20px;
 `;
 
 export const FormLabel = styled.label`
@@ -10,19 +12,22 @@ export const FormLabel = styled.label`
 `;
 
 export const FormInput = styled.input`
-  width: 300px;
-  margin-bottom: 5px;
   padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
 `;
 
 export const FormButton = styled.button`
-  width: 50%;
+  padding: 10px;
+  background-color: #a03333;
+  color: #fff;
   border: none;
-  border-radius: 10px;
-  background-color: #aaffaa;
-  padding: 5px 10px;
-  margin-bottom: 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+
   &:hover {
-    background-color: #73f873;
+    background-color: #d45757;
   }
 `;

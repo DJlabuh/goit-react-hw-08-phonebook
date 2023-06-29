@@ -1,16 +1,18 @@
 import styled from 'styled-components';
 
 export const FilterBox = styled.div`
-  margin-bottom: 18px;
+  margin-top: 20px;
+  margin-bottom: 35px;
+  max-width: 300px;
 `;
 
 export const FilterLabel = styled.label`
-  display: block;
-  font-size: 14px;
-  color: #df6e1d;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 `;
 
 export const FilterInput = styled.input`
   padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
 `;

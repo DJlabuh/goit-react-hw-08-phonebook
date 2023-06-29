@@ -24,8 +24,8 @@ export const ContactList = () => {
 
   return (
     <ContactsUl>
-      {visibleContacts.map(({ name, phone, id }) => (
-        <ContactsLi key={id}>
+      {visibleContacts.map(({ name, phone, id }, index) => (
+        <ContactsLi key={id} dark={index % 2 === 0}>
           <ContactsText>{name}</ContactsText>
           <ContactsText>{phone}</ContactsText>
           <ContactsButton
