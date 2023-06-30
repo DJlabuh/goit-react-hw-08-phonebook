@@ -31,11 +31,11 @@ function Contacts() {
   return (
     <div className="container">
       <div className="section">
-        <h2>Create contact</h2>
+        <h2>Create Contact</h2>
         <ContactForm />
       </div>
       <div className='section'>
-        <h2>Сontact search</h2>
+        <h2>Search Сontact</h2>
         <Filter />
         {isLoading ? (
           <Loader />

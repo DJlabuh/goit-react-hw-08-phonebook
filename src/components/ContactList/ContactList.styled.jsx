@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ContactsUl = styled.ul`
   list-style: none;
-  padding: 0;
+  padding: 0 20px 0 0px;
 `;
 
 export const ContactsLi = styled.li`
@@ -10,15 +10,18 @@ export const ContactsLi = styled.li`
   align-items: center;
   justify-content: space-between;
   padding: 10px;
+  margin-bottom: 6px;
   border-bottom: 1px solid #ccc;
+  border-radius: 10px;
   background-color: ${props => (props.dark ? '#f5f5f5' : 'inherit')};
-  width: 600px;
+  width: 550px;
 
   &:last-child {
     border-bottom: none;
+    margin-bottom: 0;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
