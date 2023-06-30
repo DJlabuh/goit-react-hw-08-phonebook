@@ -1,12 +1,9 @@
+import { RiDeleteBinLine } from 'react-icons/ri';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectFilter, selectContacts, selectIsLoading } from 'redux/selectors';
+import { selectFilter, selectContacts } from 'redux/selectors';
 import { deleteContacts } from 'redux/operations';
-import {
-  ContactsUl,
-  ContactsLi,
-  ContactsText,
-  ContactsButton,
-} from './ContactList.styled.jsx';
+import { Button } from '@chakra-ui/react';
+import { ContactsUl, ContactsLi, ContactsText } from './ContactList.styled.jsx';
 
 import { getVisibleContacts } from 'helpers/contactUtils';
 
@@ -14,7 +11,6 @@ export const ContactList = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
-  const isLoading = useSelector(selectIsLoading);
 
   const visibleContacts = getVisibleContacts(contacts, filter);
 
@@ -28,12 +24,13 @@ export const ContactList = () => {
         <ContactsLi key={id} dark={index % 2 === 0}>
           <ContactsText>{name}</ContactsText>
           <ContactsText>{phone}</ContactsText>
-          <ContactsButton
+          <Button
+            colorScheme="telegram"
+            size="sm"
             onClick={() => handleDeleteContact(id)}
-            disabled={isLoading}
           >
-            {isLoading ? 'Deleting...' : 'Delete'}
-          </ContactsButton>
+            <RiDeleteBinLine />
+          </Button>
         </ContactsLi>
       ))}
     </ContactsUl>

@@ -21,7 +21,7 @@ export const ContactsLi = styled.li`
     margin-bottom: 0;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 320px) {
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
@@ -38,23 +38,5 @@ export const ContactsText = styled.p`
   @media (max-width: 768px) {
     width: 100%;
     margin-bottom: 8px;
-  }
-`;
-
-export const ContactsButton = styled.button`
-  padding: 5px 10px;
-  background-color: #a03333;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #d45757;
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
   }
 `;

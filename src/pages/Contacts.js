@@ -7,7 +7,7 @@ import { fetchContacts } from 'redux/operations';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// import { Container, SectionComponents, Title, WarningText } from './App.styled';
+import { Text } from "@chakra-ui/react"
 
 import { ContactForm } from 'components/ContactForm';
 import { Filter } from 'components/Filter';
@@ -31,11 +31,11 @@ function Contacts() {
   return (
     <div className="container">
       <div className="section">
-        <h2>Create Contact</h2>
+        <Text fontSize="18px" fontWeight="700" color="#007ab8">Create Contact</Text>
         <ContactForm />
       </div>
       <div className='section'>
-        <h2>Search Сontact</h2>
+        <Text fontSize="18px" fontWeight="700" color="#007ab8">Search Сontact</Text>
         <Filter />
         {isLoading ? (
           <Loader />

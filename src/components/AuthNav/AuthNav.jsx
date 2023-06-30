@@ -16,12 +16,12 @@ export const AuthNav = () => {
       </MenuButton>
       <MenuList>
         <MenuGroup>
-          <MenuItem>
-            <NavLink to="/register">Register</NavLink>
-          </MenuItem>
-          <MenuItem>
-            <NavLink to="/login">LogIn</NavLink>
-          </MenuItem>
+          <NavLink to="/register">
+            <MenuItem>Register</MenuItem>
+          </NavLink>
+          <NavLink to="/login">
+            <MenuItem>LogIn</MenuItem>
+          </NavLink>
         </MenuGroup>
       </MenuList>
     </Menu>

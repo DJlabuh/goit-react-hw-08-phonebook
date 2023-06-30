@@ -20,14 +20,14 @@ export const FormInput = styled.input`
 
 export const FormButton = styled.button`
   padding: 10px;
-  background-color: #a03333;
+  background-color: #0088cc;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
   width: 100%;
 
   &:hover {
-    background-color: #d45757;
+    background-color: #007ab8;
   }
 `;
