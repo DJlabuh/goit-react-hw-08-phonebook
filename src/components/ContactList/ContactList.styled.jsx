@@ -14,14 +14,14 @@ export const ContactsLi = styled.li`
   border-bottom: 1px solid #ccc;
   border-radius: 10px;
   background-color: ${props => (props.dark ? '#f5f5f5' : 'inherit')};
-  width: 550px;
+  width: 380px;
 
   &:last-child {
     border-bottom: none;
     margin-bottom: 0;
   }
 
-  @media (max-width: 320px) {
+  @media (max-width: 410px) {
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
