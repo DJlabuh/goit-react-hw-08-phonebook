@@ -1,14 +1,29 @@
-import { AuthNavContainer, NavItem, StyledNavLink } from './AuthNav.styled';
+import { NavLink } from 'react-router-dom';
+import {
+  Menu,
+  MenuButton,
+  Button,
+  MenuList,
+  MenuItem,
+  MenuGroup,
+} from '@chakra-ui/react';
 
 export const AuthNav = () => {
   return (
-    <AuthNavContainer>
-      <NavItem>
-        <StyledNavLink to="/register">Register</StyledNavLink>
-      </NavItem>
-      <NavItem>
-        <StyledNavLink to="/login">LogIn</StyledNavLink>
-      </NavItem>
-    </AuthNavContainer>
+    <Menu>
+      <MenuButton as={Button} colorScheme="telegram">
+        Profile
+      </MenuButton>
+      <MenuList>
+        <MenuGroup>
+          <MenuItem>
+            <NavLink to="/register">Register</NavLink>
+          </MenuItem>
+          <MenuItem>
+            <NavLink to="/login">LogIn</NavLink>
+          </MenuItem>
+        </MenuGroup>
+      </MenuList>
+    </Menu>
   );
 };
