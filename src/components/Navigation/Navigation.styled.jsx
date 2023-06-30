@@ -13,7 +13,7 @@ export const List = styled.ul`
 `;
 
 export const ListItem = styled.li`
-  margin-right: 25px;
+  margin-right: 20px;
 
   &:last-child {
     margin-right: 0;
@@ -26,9 +26,9 @@ export const StyledNavLink = styled(NavLink)`
   font-weight: bold;
 
   &.active {
-    color: #a03333;
+    color: #0088cc;
   }
   &:hover {
-    color: #a03333;
+    color: #0088cc;
   }
 `;

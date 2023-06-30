@@ -8,18 +8,5 @@ export const UserMenuContainer = styled.div`
 
 export const Email = styled.p`
   margin-bottom: 10px;
-  font-size: 14px;
-`;
-
-export const LogoutButton = styled.button`
-  background-color: #a03333;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  font-size: 14px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #d45757;
-  }
+  font-size: 12px;
 `;

@@ -7,9 +7,9 @@ export const Navigation = () => {
         <ListItem>
           <StyledNavLink to="/">HOME</StyledNavLink>
         </ListItem>
-        <li>
+        <ListItem>
           <StyledNavLink to="/contacts">CONTACTS</StyledNavLink>
-        </li>
+        </ListItem>
       </List>
     </Nav>
   );
