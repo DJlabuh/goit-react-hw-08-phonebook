@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {
@@ -9,42 +9,45 @@ import {
   FormButton,
 } from './ContactForm.styled';
 
-// import { useDispatch, useSelector } from 'react-redux';
-// import {
-//   useAddContactsMutation,
-//   useFetchContactsQuery,
-// } from 'redux/Contacts/contactsApi';
-// import { selectContacts } from 'redux/selectors';
+import {
+  useAddContactsMutation,
+  useFetchContactsQuery,
+} from 'redux/contactsApi';
 
 export const ContactForm = () => {
-  // const dispatch = useDispatch();
-  // const contacts = useSelector(selectContacts);
+  const { data: contacts = [] } = useFetchContactsQuery();
+  const [addContacts] = useAddContactsMutation();
+
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    // const isDuplicateName = contacts.some(
-    //   contact => contact.name.toLowerCase() === name.toLowerCase()
-    // );
+    const isDuplicateName = contacts.some(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
 
-    // const isDuplicateNumber = contacts.some(contact => contact.phone === phone);
+    const isDuplicateNumber = contacts.some(contact => contact.phone === phone);
 
-    // if (isDuplicateName) {
-    //   toast.error(`Contact with this ${name} already exists!`);
-    //   return;
-    // }
+    if (isDuplicateName) {
+      toast.error(`Contact with this ${name} already exists!`);
+      return;
+    }
 
-    // if (isDuplicateNumber) {
-    //   toast.error(`Contact with this ${phone} already exists!`);
-    //   return;
-    // }
+    if (isDuplicateNumber) {
+      toast.error(`Contact with this ${phone} already exists!`);
+      return;
+    }
 
-    // dispatch(addContacts({ name, phone }));
-
-    setName('');
-    setPhone('');
+    addContacts({ name, phone })
+      .then(() => {
+        setName('');
+        setPhone('');
+      })
+      .catch(() => {
+        toast.error('Failed to add contact.');
+      });
   };
 
   return (
