@@ -26,7 +26,7 @@ export const UserMenu = () => {
 
   return (
     <UserMenuContainer>
-      <Avatar bg="grey" />
+      <Avatar bg="grey" width="25px" height="25px" />
       <Email>{user.email}</Email>
       <Button
         type="submit"
