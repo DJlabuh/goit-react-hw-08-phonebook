@@ -3,8 +3,12 @@ import styled from 'styled-components';
 export const FormContact = styled.form`
   display: flex;
   flex-direction: column;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  box-shadow: 0px 10px 13px -7px #000000;
   max-width: 300px;
-  margin-top: 20px;
+  margin-top: 10px;
 `;
 
 export const FormLabel = styled.label`

@@ -1,13 +1,14 @@
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectFilter, selectContacts } from 'redux/selectors';
-import { deleteContacts } from 'redux/operations';
+import { useDeleteContactsMutation } from 'redux/contactsApi';
 import { Button } from '@chakra-ui/react';
 import { ContactsUl, ContactsLi, ContactsText } from './ContactList.styled.jsx';
 
 import { getVisibleContacts } from 'helpers/contactUtils';
 
 export const ContactList = () => {
+  const [deleteContact] = useDeleteContactsMutation();
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
@@ -15,7 +16,7 @@ export const ContactList = () => {
   const visibleContacts = getVisibleContacts(contacts, filter);
 
   const handleDeleteContact = contactId => {
-    dispatch(deleteContacts(contactId));
+    dispatch(deleteContact(contactId));
   };
 
   return (

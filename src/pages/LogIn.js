@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { logIn } from 'redux/Auth/operationsAuth';
+
 import { EmailIcon, UnlockIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 import {
   Flex,
@@ -11,23 +14,38 @@ import {
   Button,
 } from '@chakra-ui/react';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function LogIn() {
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const isAuthSelector = state => state.auth.isLoggedIn;
+  const isAuth = useSelector(isAuthSelector);
+
+  const navigate = useNavigate();
   const handleClick = () => setShow(!show);
+
+  const dispatch = useDispatch();
 
   const handleSubmit = event => {
     event.preventDefault();
 
-    console.log('Email:', email);
-    console.log('Password:', password);
+    const dataLogIn = { email, password };
 
-    // Reset the form
+    dispatch(logIn(dataLogIn));
+
     setEmail('');
     setPassword('');
   };
+
+  useEffect(() => {
+    isAuth && navigate('/');
+    isAuth && toast.success('Welcome to the Phonebook!');
+  }, [isAuth, navigate]);
 
   return (
     <div className="container">
@@ -35,7 +53,7 @@ function LogIn() {
         <Flex align="center" justify="center">
           <form onSubmit={handleSubmit}>
             <FormControl
-              width="500px"
+              width="400px"
               p="20px"
               mt="20px"
               border="1px"
@@ -89,9 +107,11 @@ function LogIn() {
                 rightIcon={<ArrowForwardIcon />}
                 colorScheme="telegram"
                 variant="outline"
+                marginRight="15px"
               >
                 Log In
               </Button>
+              <Link to="/register">Register</Link>
             </FormControl>
           </form>
         </Flex>

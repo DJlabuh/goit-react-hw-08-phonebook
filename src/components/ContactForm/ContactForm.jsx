@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {
@@ -9,36 +9,39 @@ import {
   FormButton,
 } from './ContactForm.styled';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { addContacts } from 'redux/operations';
-import { selectContacts } from 'redux/selectors';
+// import { useDispatch, useSelector } from 'react-redux';
+// import {
+//   useAddContactsMutation,
+//   useFetchContactsQuery,
+// } from 'redux/Contacts/contactsApi';
+// import { selectContacts } from 'redux/selectors';
 
 export const ContactForm = () => {
-  const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
+  // const dispatch = useDispatch();
+  // const contacts = useSelector(selectContacts);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    const isDuplicateName = contacts.some(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
-    );
+    // const isDuplicateName = contacts.some(
+    //   contact => contact.name.toLowerCase() === name.toLowerCase()
+    // );
 
-    const isDuplicateNumber = contacts.some(contact => contact.phone === phone);
+    // const isDuplicateNumber = contacts.some(contact => contact.phone === phone);
 
-    if (isDuplicateName) {
-      toast.error(`Contact with this ${name} already exists!`);
-      return;
-    }
+    // if (isDuplicateName) {
+    //   toast.error(`Contact with this ${name} already exists!`);
+    //   return;
+    // }
 
-    if (isDuplicateNumber) {
-      toast.error(`Contact with this ${phone} already exists!`);
-      return;
-    }
+    // if (isDuplicateNumber) {
+    //   toast.error(`Contact with this ${phone} already exists!`);
+    //   return;
+    // }
 
-    dispatch(addContacts({ name, phone }));
+    // dispatch(addContacts({ name, phone }));
 
     setName('');
     setPhone('');

@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 
 export const FilterBox = styled.div`
-  margin-top: 20px;
-  margin-bottom: 35px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  box-shadow: 0px 10px 13px -7px #000000;
+  margin-top: 10px;
+  margin-bottom: 40px;
   max-width: 300px;
 `;
 

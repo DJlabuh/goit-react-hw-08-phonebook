@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
+import { ToastContainer } from 'react-toastify';
 import Layout from '../Layout/Layout';
 import { Loader } from 'components/Loader';
 
@@ -14,16 +15,19 @@ const LogIn = lazy(() => import('pages/LogIn'));
 
 export const App = () => {
   return (
-    <Suspense fallback={<Loader />}>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<LogIn />} />
-          <Route path="/contacts" element={<Contacts />} />
-          {/* <Route path="*" element={<Error />} /> */}
-        </Route>
-      </Routes>
-    </Suspense>
+    <>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<LogIn />} />
+            <Route path="/contacts" element={<Contacts />} />
+            {/* <Route path="*" element={<Error />} /> */}
+          </Route>
+        </Routes>
+      </Suspense>
+      <ToastContainer />
+    </>
   );
 };

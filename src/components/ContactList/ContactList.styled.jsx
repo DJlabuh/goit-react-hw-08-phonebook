@@ -13,7 +13,7 @@ export const ContactsLi = styled.li`
   margin-bottom: 6px;
   border-bottom: 1px solid #ccc;
   border-radius: 10px;
-  background-color: ${props => (props.dark ? '#f5f5f5' : 'inherit')};
+  background-color: #f5f5f5;
   width: 380px;
 
   &:last-child {

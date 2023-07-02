@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { EditIcon, EmailIcon, UnlockIcon, ArrowForwardIcon } from '@chakra-ui/icons';
+import { Link, useNavigate } from 'react-router-dom';
+import { registerAuth } from 'redux/Auth/operationsAuth';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {
+  EditIcon,
+  EmailIcon,
+  UnlockIcon,
+  ArrowForwardIcon,
+} from '@chakra-ui/icons';
 import {
   Flex,
   FormControl,
@@ -10,27 +19,43 @@ import {
   Input,
   Button,
 } from '@chakra-ui/react';
+import { useDispatch } from 'react-redux';
 
 function SignUp() {
   const [show, setShow] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleClick = () => setShow(!show);
 
-  const handleSubmit = event => {
-    event.preventDefault();
+  const handleSubmit = async (event) => {
+  event.preventDefault();
 
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Password:', password);
+  try {
+    const userdata = { name, email, password };
+    
+    dispatch(registerAuth(userdata));
+    toast.success(`Registration user ${name} successful! Please Log In.`);
+    navigate('/login');
+  } catch (error) {
+    console.log(error.response.status);
+    if (error.response && error.response.status === 400) {
+        toast.error('Invalid request. Please check your input.');
+      } else if (error.response && error.response.status === 409) {
+        toast.error('User already exists. Please choose a different email.');
+      } else {
+        toast.error('Registration failed. Please try again.');
+      }
+  }
 
-    // Reset the form
-    setName('');
-    setEmail('');
-    setPassword('');
-  };
+  setName('');
+  setEmail('');
+  setPassword('');
+};
+
 
   return (
     <div className="container">
@@ -38,7 +63,7 @@ function SignUp() {
         <Flex align="center" justify="center">
           <form onSubmit={handleSubmit}>
             <FormControl
-              width="500px"
+              width="400px"
               p="20px"
               mt="20px"
               border="1px"
@@ -108,9 +133,11 @@ function SignUp() {
                 rightIcon={<ArrowForwardIcon />}
                 colorScheme="telegram"
                 variant="outline"
+                marginRight="15px"
               >
                 REGISTER
               </Button>
+              <Link to="/login">Log In</Link>
             </FormControl>
           </form>
         </Flex>
