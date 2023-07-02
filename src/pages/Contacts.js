@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { selectFilter } from 'redux/selectors';
 import { useFetchContactsQuery } from 'redux/contactsApi';
+import { selectFilter } from 'redux/selectors';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -21,6 +21,7 @@ function Contacts() {
     data: contacts = [],
     isFetching: isLoading,
     isLoading: isFirstLoading,
+    // error,
   } = useFetchContactsQuery();
   useEffect(() => {
     refetch();
@@ -41,7 +42,7 @@ function Contacts() {
         <Filter />
         {isLoading ? (
           <Loader />
-        ) : visibleContacts.length ? (
+        ) : visibleContacts.length && !isFirstLoading? (
           <ContactList />
         ) : (
           <p>Contact not found!</p>
