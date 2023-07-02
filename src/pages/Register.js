@@ -31,31 +31,20 @@ function SignUp() {
 
   const handleClick = () => setShow(!show);
 
-  const handleSubmit = async (event) => {
-  event.preventDefault();
-
-  try {
-    const userdata = { name, email, password };
-    
-    dispatch(registerAuth(userdata));
-    toast.success(`Registration user ${name} successful! Please Log In.`);
-    navigate('/login');
-  } catch (error) {
-    console.log(error.response.status);
-    if (error.response && error.response.status === 400) {
-        toast.error('Invalid request. Please check your input.');
-      } else if (error.response && error.response.status === 409) {
-        toast.error('User already exists. Please choose a different email.');
-      } else {
-        toast.error('Registration failed. Please try again.');
-      }
-  }
-
-  setName('');
-  setEmail('');
-  setPassword('');
-};
-
+  const handleSubmit = async e => {
+    e.preventDefault();
+    try {
+      const userdata = { name, email, password };
+      await dispatch(registerAuth(userdata)).unwrap();
+      toast.success('Registration user successful! Please Log In.');
+      setName('');
+      setEmail('');
+      setPassword('');
+      navigate('/login');
+    } catch (error) {
+      toast.error('Registration failed. Please try again.');
+    }
+  };
 
   return (
     <div className="container">
@@ -63,7 +52,7 @@ function SignUp() {
         <Flex align="center" justify="center">
           <form onSubmit={handleSubmit}>
             <FormControl
-              width="400px"
+              width="380px"
               p="20px"
               mt="20px"
               border="1px"

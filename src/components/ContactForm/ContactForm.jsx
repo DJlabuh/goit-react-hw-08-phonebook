@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {
+  useAddContactsMutation,
+  useFetchContactsQuery,
+} from 'redux/contactsApi';
 
 import {
   FormContact,
@@ -9,11 +13,6 @@ import {
   FormButton,
 } from './ContactForm.styled';
 
-import {
-  useAddContactsMutation,
-  useFetchContactsQuery,
-} from 'redux/contactsApi';
-
 export const ContactForm = () => {
   const { data: contacts = [] } = useFetchContactsQuery();
   const [addContacts] = useAddContactsMutation();
@@ -21,33 +20,17 @@ export const ContactForm = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
-    const isDuplicateName = contacts.some(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
-    );
-
-    const isDuplicateNumber = contacts.some(contact => contact.phone === phone);
-
-    if (isDuplicateName) {
-      toast.error(`Contact with this ${name} already exists!`);
-      return;
+    try {
+      await addContacts({ name, phone });
+      toast.success('Contact added successfully');
+      setName('');
+      setPhone('');
+    } catch (error) {
+      toast.error('Failed to add contact');
     }
-
-    if (isDuplicateNumber) {
-      toast.error(`Contact with this ${phone} already exists!`);
-      return;
-    }
-
-    addContacts({ name, phone })
-      .then(() => {
-        setName('');
-        setPhone('');
-      })
-      .catch(() => {
-        toast.error('Failed to add contact.');
-      });
   };
 
   return (
@@ -76,6 +59,15 @@ export const ContactForm = () => {
           required
         />
       </FormLabel>
+      {contacts.length > 0 && (
+        <ul>
+          {contacts.map(contact => (
+            <li key={contact.id}>
+              {contact.name} - {contact.phone}
+            </li>
+          ))}
+        </ul>
+      )}
       <FormButton type="submit">Add contact</FormButton>
     </FormContact>
   );

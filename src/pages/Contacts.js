@@ -23,6 +23,7 @@ function Contacts() {
     isLoading: isFirstLoading,
     // error,
   } = useFetchContactsQuery();
+  
   useEffect(() => {
     refetch();
   }, [refetch]);

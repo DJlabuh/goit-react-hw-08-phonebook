@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { logIn } from 'redux/Auth/operationsAuth';
 
 import { EmailIcon, UnlockIcon, ArrowForwardIcon } from '@chakra-ui/icons';
@@ -23,22 +23,22 @@ function LogIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const navigate = useNavigate();
   const handleClick = () => setShow(!show);
 
   const dispatch = useDispatch();
 
- const handleSubmit = async e => {
-  e.preventDefault();
-  try {
-    const dataLogIn = { email, password };
-    await dispatch(logIn(dataLogIn)).unwrap();
-    navigate('/');
-    toast.success('Welcome to the Phonebook!');
-  } catch (error) {
-    toast.error('Login is not possible. Please make sure you entered the correct details and try again.');
-  }
-};
+  const handleSubmit = async e => {
+    e.preventDefault();
+    try {
+      const dataLogIn = { email, password };
+      await dispatch(logIn(dataLogIn)).unwrap();
+      toast.success('Welcome!');
+      setEmail('');
+      setPassword('');
+    } catch (error) {
+      toast.error('Please make sure you entered the correct details and try again.');
+    }
+  };
 
   return (
     <div className="container">
@@ -46,7 +46,7 @@ function LogIn() {
         <Flex align="center" justify="center">
           <form onSubmit={handleSubmit}>
             <FormControl
-              width="400px"
+              width="380px"
               p="20px"
               mt="20px"
               border="1px"
