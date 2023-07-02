@@ -3,17 +3,17 @@ import { UserMenu } from 'components/UserMenu';
 import { AuthNav } from 'components/AuthNav';
 
 import { HeaderContainer } from './Header.styled';
-import { useSelector } from 'react-redux';
+
+import { useAuth } from 'components/hooks';
 
 export const Header = () => {
-  const isAuthSelector = state => state.auth.isLoggedIn;
-  const isAuth = useSelector(isAuthSelector);
+  const { isLoggedIn } = useAuth();
 
   return (
     <div className="container">
       <HeaderContainer>
         <Navigation />
-        {isAuth ? <UserMenu /> : <AuthNav />}
+        {isLoggedIn ? <UserMenu /> : <AuthNav />}
       </HeaderContainer>
     </div>
   );

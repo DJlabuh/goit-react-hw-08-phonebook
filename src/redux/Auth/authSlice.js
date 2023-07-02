@@ -16,11 +16,6 @@ const handleAuthorisationFulfilled = (state, action) => {
 };
 const handleRejectedAuthorisation = (state, { payload }) => {
   state.error = payload;
-  state.isLoading = false;
-  state.isRefreshing = false;
-  state.isLoggedIn = false;
-  state.user = { name: null, email: null };
-  state.token = null;
 };
 
 const handleFulfilledLogout = state => {
@@ -49,19 +44,19 @@ const initialState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
   extraReducers: builder =>
     builder
       .addCase(registerAuth.fulfilled, handleAuthorisationFulfilled)
       .addCase(logIn.fulfilled, handleAuthorisationFulfilled)
-      .addCase(logIn.rejected, handleRejectedAuthorisation)
       .addCase(logOut.fulfilled, handleFulfilledLogout)
       .addCase(refreshUser.pending, handlePendingRefresh)
       .addCase(refreshUser.fulfilled, handleFulfilledRefresh)
       .addCase(refreshUser.rejected, handleRejectedRefresh)
       .addMatcher(action => action.type.endsWith('/pending'), handlePending)
-      .addMatcher(action => action.type.endsWith('/rejected'), handleRejectedAuthorisation),
+      .addMatcher(
+        action => action.type.endsWith('/rejected'),
+        handleRejectedAuthorisation
+      ),
 });
-
 
 export const authReducer = authSlice.reducer;
