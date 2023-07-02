@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { logIn } from 'redux/Auth/operationsAuth';
 
@@ -14,7 +14,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -23,29 +23,22 @@ function LogIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const isAuthSelector = state => state.auth.isLoggedIn;
-  const isAuth = useSelector(isAuthSelector);
-
   const navigate = useNavigate();
   const handleClick = () => setShow(!show);
 
   const dispatch = useDispatch();
 
-  const handleSubmit = event => {
-    event.preventDefault();
-
+ const handleSubmit = async e => {
+  e.preventDefault();
+  try {
     const dataLogIn = { email, password };
-
-    dispatch(logIn(dataLogIn));
-
-    setEmail('');
-    setPassword('');
-  };
-
-  useEffect(() => {
-    isAuth && navigate('/');
-    isAuth && toast.success('Welcome to the Phonebook!');
-  }, [isAuth, navigate]);
+    await dispatch(logIn(dataLogIn)).unwrap();
+    navigate('/');
+    toast.success('Welcome to the Phonebook!');
+  } catch (error) {
+    toast.error('Login is not possible. Please make sure you entered the correct details and try again.');
+  }
+};
 
   return (
     <div className="container">
