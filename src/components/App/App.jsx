@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import Layout from '../Layout/Layout';
 import { Loader } from 'components/Loader';
+import { Error } from 'components/Error';
 
 import { useAuth } from 'components/hooks';
 import { refreshUser } from 'redux/Auth/operationsAuth';
@@ -55,7 +56,7 @@ export const App = () => {
                   <PrivateRoute component={Contacts} redirectTo="/login" />
                 }
               />
-              {/* <Route path="*" element={<Error />} /> */}
+              <Route path="*" element={<Error />} />
             </Route>
           </Routes>
         )}
