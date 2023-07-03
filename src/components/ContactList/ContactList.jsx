@@ -26,7 +26,7 @@ export const ContactList = ({ contacts }) => {
             onClick={() => handleDeleteContact(id)}
             disabled={isLoading}
           >
-            <RiDeleteBinLine />
+            <RiDeleteBinLine size="lg" />
           </Button>
         </ContactsLi>
       ))}

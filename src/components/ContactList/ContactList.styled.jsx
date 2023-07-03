@@ -8,13 +8,13 @@ export const ContactsUl = styled.ul`
 export const ContactsLi = styled.li`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 10px;
   margin-bottom: 6px;
   border-bottom: 1px solid #ccc;
   border-radius: 10px;
   background-color: #f5f5f5;
-  width: 380px;
+  width: 360px;
 
   &:last-child {
     border-bottom: none;

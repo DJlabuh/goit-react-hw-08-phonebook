@@ -52,7 +52,9 @@ function Contacts() {
         {visibleContacts.length && !isFirstLoading ? (
           <ContactList contacts={visibleContacts} />
         ) : (
-          <p>Contact not found!</p>
+          <Text color="red" fontSize="lg" mt="1">
+            Contact not found!
+          </Text>
         )}
         <ToastContainer />
       </div>
