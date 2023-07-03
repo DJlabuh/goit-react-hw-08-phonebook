@@ -1,83 +1,115 @@
-import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { object, string, number } from 'yup';
+
 import {
   useAddContactsMutation,
   useFetchContactsQuery,
 } from 'redux/contactsApi';
 
-import {
-  FormContact,
-  FormLabel,
-  FormInput,
-  FormButton,
-} from './ContactForm.styled';
+import { FormControl, Input, Button, Text } from '@chakra-ui/react';
+
+const contactSchema = object({
+  name: string()
+    .min(6, 'Name must be at least 6 digits!')
+    .required('Name is required!'),
+  number: number().required('Number is required!'),
+});
+
+const initialValues = {
+  name: '',
+  number: '',
+};
 
 export const ContactForm = () => {
   const { data: contacts = [] } = useFetchContactsQuery();
   const [addContact] = useAddContactsMutation();
 
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-
-  const handleSubmit = async e => {
-    e.preventDefault();
-
+  const handleSubmit = async (values, { resetForm }) => {
     const isDuplicateName = contacts.some(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
+      contact => contact.name.toLowerCase() === values.name.toLowerCase()
     );
-
     const isDuplicateNumber = contacts.some(
-      contact => contact.number === number
+      contact => contact.number === values.number
     );
-
     if (isDuplicateName) {
-      toast.error(`Contact with this "${name}" already exists!`);
+      toast.error(`Contact with this "${values.name}" already exists!`);
       return;
     }
-
     if (isDuplicateNumber) {
-      toast.error(`Contact with this "${number}" already exists!`);
+      toast.error(`Contact with this "${values.number}" already exists!`);
       return;
     }
-
     try {
-      await addContact({ name, number }).unwrap();
+      await addContact(values).unwrap();
       toast.info('Contact added successfully!');
-      setName('');
-      setNumber('');
+      resetForm();
     } catch (error) {
       toast.error('Failed to add contact. Please try again.');
     }
   };
 
   return (
-    <FormContact onSubmit={handleSubmit}>
-      <FormLabel>
-        Name
-        <FormInput
-          type="text"
-          name="name"
-          value={name}
-          onChange={e => setName(e.target.value)}
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-        />
-      </FormLabel>
-      <FormLabel>
-        Telephone
-        <FormInput
-          type="tel"
-          name="phone"
-          value={number}
-          onChange={e => setNumber(e.target.value)}
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-        />
-      </FormLabel>
-      <FormButton type="submit">Add contact</FormButton>
-    </FormContact>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={contactSchema}
+      onSubmit={handleSubmit}
+    >
+      <Form autoComplete="off">
+        <FormControl
+          width="360px"
+          p="20px"
+          mt="14px"
+          border="1px"
+          borderRadius="15px"
+          borderColor="gray.200"
+          boxShadow="lg"
+          bg="white"
+        >
+          <Field
+            as={Input}
+            type="text"
+            name="name"
+            variant="outline"
+            placeholder="Enter name"
+            size="md"
+          />
+          <ErrorMessage
+            name="name"
+            component={({ children }) => (
+              <Text color="red" fontSize="sm" mt="1">
+                {children}
+              </Text>
+            )}
+          />
+          <Field
+            as={Input}
+            type="tel"
+            name="number"
+            placeholder="Enter phone"
+            size="md"
+            mt="12px"
+          />
+          <ErrorMessage
+            name="number"
+            component={({ children }) => (
+              <Text color="red" fontSize="sm" mt="1">
+                {children}
+              </Text>
+            )}
+          />
+          <Button
+            type="submit"
+            colorScheme="telegram"
+            variant="outline"
+            mt="20px"
+          >
+            Add contact
+          </Button>
+        </FormControl>
+      </Form>
+    </Formik>
   );
 };

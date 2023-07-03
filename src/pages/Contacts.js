@@ -21,7 +21,6 @@ function Contacts() {
     data: contacts = [],
     isFetching: isLoading,
     isLoading: isFirstLoading,
-    // error,
   } = useFetchContactsQuery();
 
   useEffect(() => {
@@ -47,6 +46,9 @@ function Contacts() {
           Search Сontact
         </Text>
         <Filter />
+        <Text fontSize="18px" fontWeight="700" color="#007ab8" mb="16px">
+          My Сontacts
+        </Text>
         {visibleContacts.length && !isFirstLoading ? (
           <ContactList contacts={visibleContacts} />
         ) : (
