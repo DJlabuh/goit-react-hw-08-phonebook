@@ -32,11 +32,13 @@ function LogIn() {
     try {
       const dataLogIn = { email, password };
       await dispatch(logIn(dataLogIn)).unwrap();
-      toast.success('Welcome!');
+      toast.info('Welcome!');
       setEmail('');
       setPassword('');
     } catch (error) {
-      toast.error('Please make sure you entered the correct details and try again.');
+      toast.error(
+        'Please make sure you entered the correct details and try again.'
+      );
     }
   };
 
@@ -104,7 +106,10 @@ function LogIn() {
               >
                 Log In
               </Button>
-              <Link to="/register">Register</Link>
+              <Link to="/register">
+                <ArrowForwardIcon color="#007ab8" mr="5px" />
+                Register
+              </Link>
             </FormControl>
           </form>
         </Flex>

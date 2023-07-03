@@ -5,11 +5,10 @@ import { FilterBox, FilterLabel, FilterInput } from './Filter.styled';
 
 export const Filter = () => {
   const filter = useSelector(selectFilter);
-
   const dispatch = useDispatch();
 
   const handleChange = e => {
-    dispatch(setFilter(e.currentTarget.value));
+    dispatch(setFilter(e.currentTarget.value.trim()));
   };
 
   return (
@@ -19,7 +18,7 @@ export const Filter = () => {
         <FilterInput
           type="text"
           name="filter"
-          value={filter.query}
+          value={filter}
           onChange={handleChange}
         />
       </FilterLabel>

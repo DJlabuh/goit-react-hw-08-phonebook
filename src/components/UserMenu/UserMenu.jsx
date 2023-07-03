@@ -17,7 +17,7 @@ export const UserMenu = () => {
   const handleLogOut = () => {
     dispatch(logOut())
       .then(() => {
-        toast.success('Session ended. Exit successful.');
+        toast.info('Session ended. Exit successful.');
       })
       .catch(() => {
         toast.error('Error while debugging. Please try again.');

@@ -21,6 +21,10 @@ export const ContactsLi = styled.li`
     margin-bottom: 0;
   }
 
+  &:nth-child(2n + 1) {
+    background-color: #e9e9e9;
+  }
+
   @media (max-width: 410px) {
     flex-direction: column;
     align-items: flex-start;

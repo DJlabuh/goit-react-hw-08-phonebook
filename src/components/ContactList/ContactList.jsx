@@ -7,7 +7,7 @@ import { Button } from '@chakra-ui/react';
 import { ContactsUl, ContactsLi, ContactsText } from './ContactList.styled.jsx';
 
 export const ContactList = ({ contacts }) => {
-  const [deleteContact] = useDeleteContactsMutation();
+  const [deleteContact, { isLoading }] = useDeleteContactsMutation();
 
   const handleDeleteContact = contactId => {
     deleteContact(contactId);
@@ -17,13 +17,14 @@ export const ContactList = ({ contacts }) => {
   return (
     <ContactsUl>
       {contacts.map(({ name, number, id }, index) => (
-        <ContactsLi key={id} dark={index % 2 === 0}>
+        <ContactsLi key={id}>
           <ContactsText>{name}</ContactsText>
           <ContactsText>{number}</ContactsText>
           <Button
             colorScheme="telegram"
             size="sm"
             onClick={() => handleDeleteContact(id)}
+            disabled={isLoading}
           >
             <RiDeleteBinLine />
           </Button>

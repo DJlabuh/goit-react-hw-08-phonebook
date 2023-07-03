@@ -36,7 +36,7 @@ function SignUp() {
     try {
       const userdata = { name, email, password };
       await dispatch(registerAuth(userdata)).unwrap();
-      toast.success('Registration user successful! Please Log In.');
+      toast.info('Registration user successful! Please Log In.');
       setName('');
       setEmail('');
       setPassword('');
@@ -126,7 +126,10 @@ function SignUp() {
               >
                 REGISTER
               </Button>
-              <Link to="/login">Log In</Link>
+              <Link to="/login">
+                <ArrowForwardIcon color="#007ab8" mr="5px" />
+                Log In
+              </Link>
             </FormControl>
           </form>
         </Flex>
