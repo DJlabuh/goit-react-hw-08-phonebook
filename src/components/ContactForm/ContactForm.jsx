@@ -29,7 +29,8 @@ const initialValues = {
 
 export const ContactForm = () => {
   const { data: contacts = [] } = useFetchContactsQuery();
-  const [addContact] = useAddContactsMutation();
+  const [addContact, { isError, isFetching, isSuccess }] =
+    useAddContactsMutation();
 
   const handleSubmit = async (values, { resetForm }) => {
     const isDuplicateName = contacts.some(
@@ -61,64 +62,70 @@ export const ContactForm = () => {
       validationSchema={contactSchema}
       onSubmit={handleSubmit}
     >
-      <Form autoComplete="off">
-        <FormControl
-          width="360px"
-          p="20px"
-          mt="14px"
-          border="1px"
-          borderRadius="15px"
-          borderColor="gray.200"
-          boxShadow="lg"
-          bg="white"
-        >
-          <Field
-            as={Input}
-            type="text"
-            name="name"
-            variant="outline"
-            placeholder="Enter name"
-            size="md"
-            title="Please enter a name contact"
-          />
-          <ErrorMessage
-            name="name"
-            component={({ children }) => (
-              <Text color="red" fontSize="sm" mt="1">
-                {children}
-              </Text>
-            )}
-          />
-          <Field
-            as={Input}
-            type="tel"
-            name="number"
-            placeholder="Enter phone"
-            size="md"
-            mt="12px"
-            title="Please enter a phone number in the format (123) 456-7890"
-          />
-          <Text fontSize="sm" color="gray.500" mt="2">
-            Example: (123) 456-7890
-          </Text>
-          <ErrorMessage
-            name="number"
-            component={({ children }) => (
-              <Text color="red" fontSize="sm" mt="1">
-                {children}
-              </Text>
-            )}
-          />
-          <Button
-            type="submit"
-            colorScheme="telegram"
-            variant="outline"
-            mt="20px"
+      {({ isSubmitting }) => (
+        <Form autoComplete="off">
+          <FormControl
+            width="360px"
+            p="20px"
+            mt="14px"
+            border="1px"
+            borderRadius="15px"
+            borderColor="gray.200"
+            boxShadow="lg"
+            bg="white"
           >
-            Add contact
-          </Button>
-        </FormControl>
-      </Form>
+            <Field
+              as={Input}
+              type="text"
+              name="name"
+              variant="outline"
+              placeholder="Enter name"
+              size="md"
+              title="Please enter a name contact"
+            />
+            <ErrorMessage
+              name="name"
+              component={({ children }) => (
+                <Text color="red" fontSize="sm" mt="1">
+                  {children}
+                </Text>
+              )}
+            />
+            <Field
+              as={Input}
+              type="tel"
+              name="number"
+              placeholder="Enter phone"
+              size="md"
+              mt="12px"
+              title="Please enter a phone number in the format (123) 456-7890"
+            />
+            <Text fontSize="sm" color="gray.500" mt="2">
+              Example: (123) 456-7890
+            </Text>
+            <ErrorMessage
+              name="number"
+              component={({ children }) => (
+                <Text color="red" fontSize="sm" mt="1">
+                  {children}
+                </Text>
+              )}
+            />
+            <Button
+              type="submit"
+              colorScheme="telegram"
+              variant="outline"
+              mt="20px"
+              isLoading={isSubmitting || isFetching}
+              loadingText="Contact added"
+              spinnerPlacement="end"
+              disabled={isSuccess || isError}
+            >
+              Add contact
+            </Button>
+          </FormControl>
+        </Form>
+      )}
     </Formik>
   );
 };
