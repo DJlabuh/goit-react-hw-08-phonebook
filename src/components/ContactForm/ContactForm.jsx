@@ -2,7 +2,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { object, string, number } from 'yup';
+import { object, string } from 'yup';
 
 import {
   useAddContactsMutation,
@@ -11,11 +11,15 @@ import {
 
 import { FormControl, Input, Button, Text } from '@chakra-ui/react';
 
+const phoneRegex = RegExp(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
+
 const contactSchema = object({
   name: string()
     .min(6, 'Name must be at least 6 digits!')
     .required('Name is required!'),
-  number: number().required('Number is required!'),
+  number: string()
+    .matches(phoneRegex, 'Invalid phone')
+    .required('Phone is required'),
 });
 
 const initialValues = {
@@ -75,6 +79,7 @@ export const ContactForm = () => {
             variant="outline"
             placeholder="Enter name"
             size="md"
+            title="Please enter a name contact"
           />
           <ErrorMessage
             name="name"
@@ -91,7 +96,11 @@ export const ContactForm = () => {
             placeholder="Enter phone"
             size="md"
             mt="12px"
+            title="Please enter a phone number in the format (123) 456-7890"
           />
+          <Text fontSize="sm" color="gray.500" mt="2">
+            Example: (123) 456-7890
+          </Text>
           <ErrorMessage
             name="number"
             component={({ children }) => (
