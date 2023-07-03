@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { useFetchContactsQuery } from 'redux/contactsApi';
 import { selectFilter } from 'redux/selectors';
 
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Text } from '@chakra-ui/react';
@@ -56,7 +55,6 @@ function Contacts() {
             Contact not found!
           </Text>
         )}
-        <ToastContainer />
       </div>
     </div>
   );

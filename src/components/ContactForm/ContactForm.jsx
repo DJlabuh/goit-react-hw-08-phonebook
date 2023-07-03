@@ -33,22 +33,31 @@ export const ContactForm = () => {
     useAddContactsMutation();
 
   const handleSubmit = async (values, { resetForm }) => {
+    const trimmedValues = {
+      name: values.name.trim(),
+      number: values.number.trim(),
+    };
+
     const isDuplicateName = contacts.some(
-      contact => contact.name.toLowerCase() === values.name.toLowerCase()
+      contact => contact.name.toLowerCase() === trimmedValues.name.toLowerCase()
     );
     const isDuplicateNumber = contacts.some(
-      contact => contact.number === values.number
+      contact => contact.number === trimmedValues.number
     );
+
     if (isDuplicateName) {
-      toast.error(`Contact with this "${values.name}" already exists!`);
+      toast.error(`Contact with this "${trimmedValues.name}" already exists!`);
       return;
     }
     if (isDuplicateNumber) {
-      toast.error(`Contact with this "${values.number}" already exists!`);
+      toast.error(
+        `Contact with this "${trimmedValues.number}" already exists!`
+      );
       return;
     }
+
     try {
-      await addContact(values).unwrap();
+      await addContact(trimmedValues).unwrap();
       toast.info('Contact added successfully!');
       resetForm();
     } catch (error) {
