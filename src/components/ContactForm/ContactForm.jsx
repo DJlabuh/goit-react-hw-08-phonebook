@@ -15,21 +15,39 @@ import {
 
 export const ContactForm = () => {
   const { data: contacts = [] } = useFetchContactsQuery();
-  const [addContacts] = useAddContactsMutation();
+  const [addContact] = useAddContactsMutation();
 
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
 
   const handleSubmit = async e => {
     e.preventDefault();
 
+    const isDuplicateName = contacts.some(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+
+    const isDuplicateNumber = contacts.some(
+      contact => contact.number === number
+    );
+
+    if (isDuplicateName) {
+      toast.error(`Contact with this "${name}" already exists!`);
+      return;
+    }
+
+    if (isDuplicateNumber) {
+      toast.error(`Contact with this "${number}" already exists!`);
+      return;
+    }
+
     try {
-      await addContacts({ name, phone });
-      toast.success('Contact added successfully');
+      await addContact({ name, number }).unwrap();
+      toast.info('Contact added successfully!');
       setName('');
-      setPhone('');
+      setNumber('');
     } catch (error) {
-      toast.error('Failed to add contact');
+      toast.error('Failed to add contact. Please try again.');
     }
   };
 
@@ -52,22 +70,13 @@ export const ContactForm = () => {
         <FormInput
           type="tel"
           name="phone"
-          value={phone}
-          onChange={e => setPhone(e.target.value)}
+          value={number}
+          onChange={e => setNumber(e.target.value)}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
         />
       </FormLabel>
-      {contacts.length > 0 && (
-        <ul>
-          {contacts.map(contact => (
-            <li key={contact.id}>
-              {contact.name} - {contact.phone}
-            </li>
-          ))}
-        </ul>
-      )}
       <FormButton type="submit">Add contact</FormButton>
     </FormContact>
   );

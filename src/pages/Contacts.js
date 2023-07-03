@@ -6,7 +6,7 @@ import { selectFilter } from 'redux/selectors';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { Text } from "@chakra-ui/react"
+import { Text } from '@chakra-ui/react';
 
 import { ContactForm } from 'components/ContactForm';
 import { Filter } from 'components/Filter';
@@ -23,7 +23,7 @@ function Contacts() {
     isLoading: isFirstLoading,
     // error,
   } = useFetchContactsQuery();
-  
+
   useEffect(() => {
     refetch();
   }, [refetch]);
@@ -35,20 +35,24 @@ function Contacts() {
   return (
     <div className="container">
       <div className="section">
-        <Text fontSize="18px" fontWeight="700" color="#007ab8">Create Contact</Text>
+        {isLoading && <Loader />}
+
+        <Text fontSize="18px" fontWeight="700" color="#007ab8">
+          Create Contact
+        </Text>
         <ContactForm />
       </div>
-      <div className='section'>
-        <Text fontSize="18px" fontWeight="700" color="#007ab8">Search Сontact</Text>
+      <div className="section">
+        <Text fontSize="18px" fontWeight="700" color="#007ab8">
+          Search Сontact
+        </Text>
         <Filter />
-        {isLoading ? (
-          <Loader />
-        ) : visibleContacts.length && !isFirstLoading? (
-          <ContactList />
+        {visibleContacts.length && !isFirstLoading ? (
+          <ContactList contacts={visibleContacts} />
         ) : (
           <p>Contact not found!</p>
         )}
-      <ToastContainer />
+        <ToastContainer />
       </div>
     </div>
   );
